@@ -1,0 +1,59 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+//        return twoSum01(nums, target);
+        return twoSum02(nums, target);
+    }
+
+    /**
+     * 执行耗时:52 ms,击败了20.56% 的Java用户
+     * 内存消耗:43.8 MB,击败了97.80% 的Java用户
+     * @param nums
+     * @param target
+     * @return int[]
+     * @author shenjh
+     * @since 2025/8/14 15:44
+     */
+    public int[] twoSum02(int[] nums, int target) {
+        Map<Integer, Integer> searchMap = new HashMap<>();
+        int length = nums.length;
+        for (int i = 0; i < length; i++) {
+            int num = nums[i];
+            if (searchMap.containsKey(num)) {
+                return new int[]{searchMap.get(num), i};
+            } else {
+                // 存储第一个数字的位置
+                int searchNum = target - nums[i];
+                searchMap.put(searchNum, i);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 执行耗时:52 ms,击败了20.56% 的Java用户
+     * 内存消耗:43.8 MB,击败了97.80% 的Java用户
+     * @param nums
+     * @param target
+     * @return int[]
+     * @author shenjh
+     * @since 2025/8/14 15:44
+     */
+    public int[] twoSum01(int[] nums, int target) {
+        int[] result = new int[2];
+        int jLength = nums.length;
+        int iLength = jLength - 1;
+        for (int i = 0; i < iLength; i++) {
+            for (int j = i + 1; j < jLength; j++) {
+                if (nums[i] + nums[j] == target) {
+                    result[0] = i;
+                    result[1] = j;
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+}
+
+//runtime:2 ms
+//memory:44.6 MB

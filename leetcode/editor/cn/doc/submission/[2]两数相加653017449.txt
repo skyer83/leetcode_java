@@ -1,0 +1,91 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode l1Next = l1.next;
+        ListNode l2Next = l2.next;
+        int l1Val = l1.val;
+        int l2Val = l2.val;
+        int sum = l1Val + l2Val;
+        if (sum >= 10) {
+            sum = sum - 10;
+            if (l1Next == null && l2Next == null) {
+                return new ListNode(sum, new ListNode(1));
+            } else if (l1Next == null) {
+                return new ListNode(sum, addTwoNumbers(new ListNode(1), l2Next));
+            } else if (l2Next == null) {
+                return new ListNode(sum, addTwoNumbers(l1Next, new ListNode(1)));
+            } else {
+                if (l1Next.val < 9) {
+                    l1Next.val = l1Next.val + 1;
+                    return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+                } else if (l2Next.val < 9) {
+                    l2Next.val = l2Next.val + 1;
+                    return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+                } else {
+                    return new ListNode(sum, addThreeNumbers(l1Next, l2Next, new ListNode(1)));
+                }
+            }
+        } else {
+            if (l1Next == null && l2Next == null) {
+                return new ListNode(sum);
+            } else if (l1Next == null) {
+                return new ListNode(sum, addTwoNumbers(new ListNode(0), l2Next));
+            } else if (l2Next == null) {
+                return new ListNode(sum, addTwoNumbers(l1Next, new ListNode(0)));
+            } else {
+                return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+            }
+        }
+    }
+
+    public ListNode addThreeNumbers(ListNode l1, ListNode l2, ListNode oneListNode) {
+        ListNode l1Next = l1.next;
+        ListNode l2Next = l2.next;
+        int l1Val = l1.val;
+        int l2Val = l2.val;
+        int oneVal = oneListNode.val;
+        int sum = l1Val + l2Val + oneVal;
+        if (sum >= 10) {
+            sum = sum - 10;
+            if (l1Next == null && l2Next == null) {
+                return new ListNode(sum, new ListNode(1));
+            } else if (l1Next == null) {
+                return new ListNode(sum, addTwoNumbers(new ListNode(1), l2Next));
+            } else if (l2Next == null) {
+                return new ListNode(sum, addTwoNumbers(l1Next, new ListNode(1)));
+            } else {
+                if (l1Next.val < 9) {
+                    l1Next.val = l1Next.val + 1;
+                    return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+                } else if (l2Next.val < 9) {
+                    l2Next.val = l2Next.val + 1;
+                    return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+                } else {
+                    return new ListNode(sum, addThreeNumbers(l1Next, l2Next, new ListNode(1)));
+                }
+            }
+        } else {
+            if (l1Next == null && l2Next == null) {
+                return new ListNode(sum);
+            } else if (l1Next == null) {
+                return new ListNode(sum, addTwoNumbers(new ListNode(0), l2Next));
+            } else if (l2Next == null) {
+                return new ListNode(sum, addTwoNumbers(l1Next, new ListNode(0)));
+            } else {
+                return new ListNode(sum, addTwoNumbers(l1Next, l2Next));
+            }
+        }
+    }
+}
+
+//runtime:1 ms
+//memory:43.5 MB
